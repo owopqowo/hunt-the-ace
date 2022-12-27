@@ -16,9 +16,9 @@ https://codepen.io/jaehee/pen/JKqqea
 #### perspective()
 - 적용 대상 : 관찰 대상 자체
 - 기준점 설정 : transform-origin
-### perspective-origin
+## CSS perspective-origin
 관찰자가 요소를 보는 위치를 적용하는 속성
-#### 문법
+### 문법
 50% 50% : (기본값)  
 x축 : 단일값  
 x축 y축 : 이중값  
@@ -26,7 +26,7 @@ y축 x축 : x 위치와 y 위치가 모두 키워드인 경우
 
 x축 : left, right, center의 키워드 및 %, 단위 사용 가능  
 y축 : top, bottom, center의 키워드 및 %, 단위 사용 가능
-## CSS transform-style: preserve-3d
+## CSS transform-style
 중첩된 요소가 3D 공간에서 렌더링되는 방식을 지정하는 속성
 ### 문법
 flat : 자식 요소를 2D의 2차원에서 부모 요소와 동일한 평면에 배치  
