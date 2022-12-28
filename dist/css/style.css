@@ -41,16 +41,16 @@ body {
 .card:hover .card__inner {
   transform: rotateY(180deg);
 }
-.card-a {
+.card-1 {
   grid-area: a;
 }
-.card-b {
+.card-2 {
   grid-area: b;
 }
-.card-c {
+.card-3 {
   grid-area: c;
 }
-.card-d {
+.card-4 {
   grid-area: d;
 }
 .card__inner {

@@ -17,9 +17,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  grid-template-areas:
-    'a b'
-    'c d';
+  grid-template-areas: 'a b' 'c d';
   gap: var(--card-horizontal-space);
   position: relative;
   height: calc(var(--card-height) * (var(--num-cards) / 2) + var(--card-horizontal-space));
@@ -41,16 +39,16 @@ body {
     transform: rotateY(180deg);
   }
 
-  &-a {
+  &-1 {
     grid-area: a;
   }
-  &-b {
+  &-2 {
     grid-area: b;
   }
-  &-c {
+  &-3 {
     grid-area: c;
   }
-  &-d {
+  &-4 {
     grid-area: d;
   }
 
