@@ -29,13 +29,16 @@ body {
   }
 }
 .card {
+  align-self: center;
+  justify-self: center;
   position: absolute;
   width: var(--card-width);
   height: var(--card-height);
   perspective: 1000px;
   cursor: pointer;
 
-  &:hover .card__inner {
+  &:hover .card__inner,
+  &--flip {
     transform: rotateY(180deg);
   }
 

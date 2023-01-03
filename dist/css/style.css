@@ -32,13 +32,15 @@ body {
 }
 
 .card {
+  align-self: center;
+  justify-self: center;
   position: absolute;
   width: var(--card-width);
   height: var(--card-height);
   perspective: 1000px;
   cursor: pointer;
 }
-.card:hover .card__inner {
+.card:hover .card__inner, .card--flip {
   transform: rotateY(180deg);
 }
 .card-1 {
