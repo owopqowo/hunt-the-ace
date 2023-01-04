@@ -36,9 +36,9 @@ DOM에 수행하는 모든 연산은 document 객체에서 시작
 DOM에서 null 값은 '존재하지 않음’이나 '해당하는 노드가 없음’을 의미
 ![dom-links](https://user-images.githubusercontent.com/54467533/210304102-e125cb7c-21a4-4d05-b8bb-caf16d16e3d2.svg)
 ### 트리 상단
-- <html> = document.documentElement
-- <body> = document.body
-- <head> = document.head
+- html = document.documentElement
+- body = document.body
+- head = document.head
 ### 자식 노드
 - childNodes : 텍스트 노드를 포함한 모든 자식 노드
 - firstChild : 첫 번째 자식 노드
