@@ -38,6 +38,8 @@ const primaryColor = 'black';
 let roundNum = 0;
 let maxRounds = 4;
 let score = 0;
+let gameObj = {};
+const localStorageGameKey = 'HTA';
 
 loadGame();
 
@@ -64,6 +66,7 @@ function endRound() {
 function chooseCard(card) {
   if (canChooseCard()) {
     evaluateCardChoice(card);
+    saveGame(score, roundNum);
     flipCard(card, false);
 
     setTimeout(() => {
@@ -141,6 +144,21 @@ function loadGame() {
   updateStatusElem(roundElem, 'none');
 }
 
+function checkForIncompleteGame() {
+  const serializedGameObj = getLocalStorageItem(localStorageGameKey);
+  if (serializedGameObj) {
+    gameObj = getObject(serializedGameObj);
+    if (gameObj.round >= maxRounds) {
+      removeLocalStorageItem(localStorageGameKey);
+    } else {
+      if (confirm('Would you like to continue with your last game?')) {
+        score = gameObj.score;
+        roundNum = gameObj.round;
+      }
+    }
+  }
+}
+
 function startGame() {
   initNewGame();
   startRound();
@@ -149,6 +167,8 @@ function startGame() {
 function initNewGame() {
   score = 0;
   roundNum = 0;
+
+  checkForIncompleteGame();
 
   shufflingInProgress = false;
 
@@ -292,8 +312,6 @@ function returnGridAreasMappedToCardPos() {
     }
   });
 
-  console.log(`"${firstPart}" "${secondPart}"`);
-
   return `"${firstPart}" "${secondPart}"`;
 }
 
@@ -338,4 +356,34 @@ function initCardPositions(card) {
 
 function addCardToContainer(card) {
   cardContainerElem.appendChild(card);
+}
+
+function getJSON(obj) {
+  return JSON.stringify(obj);
+}
+
+function getObject(json) {
+  return JSON.parse(json);
+}
+
+function updateLocalStorage(key, value) {
+  localStorage.setItem(key, value);
+}
+
+function removeLocalStorageItem(key) {
+  localStorage.removeItem(key);
+}
+
+function getLocalStorageItem(key) {
+  return localStorage.getItem(key);
+}
+
+function updateGameObject(score, round) {
+  gameObj.score = score;
+  gameObj.round = round;
+}
+
+function saveGame(score, round) {
+  updateGameObject(score, round);
+  updateLocalStorage(localStorageGameKey, getJSON(gameObj));
 }
