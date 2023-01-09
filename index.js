@@ -132,6 +132,8 @@ function loadGame() {
 
   cards = document.querySelectorAll('.card');
 
+  cardFlyInEffect();
+
   playGameButtonElem.addEventListener('click', () => {
     startGame();
   });
@@ -177,7 +179,6 @@ function transformGridArea(areas) {
 
 function flipCard(card, flipToBack) {
   const innerCardElem = card.firstElementChild;
-  console.log(card);
   if (flipToBack && !innerCardElem.classList.contains('card--flip')) {
     innerCardElem.classList.add('card--flip');
   } else if (innerCardElem.classList.contains('card--flip')) {
@@ -193,14 +194,58 @@ function flipCards(flipToBack) {
   });
 }
 
+function cardFlyInEffect() {
+  const id = setInterval(flyIn, 5);
+  let cardCount = 0;
+  let count = 0;
+
+  function flyIn() {
+    count++;
+    if (cardCount === numCards) {
+      clearInterval(id);
+      playGameButtonElem.style.visibility = 'visible';
+    }
+    if (count === 1 || count === 250 || count === 500 || count === 750) {
+      cardCount++;
+      let card = document.getElementById(cardCount);
+      card.classList.remove('fly-in');
+    }
+  }
+}
+
+function removeShuffleClasses() {
+  cards.forEach((card) => {
+    card.classList.remove('shuffle-left', 'shuffle-right');
+  });
+}
+
+function animateShuffle(shuffleCount) {
+  const random1 = Math.floor(Math.random() * numCards) + 1;
+  const random2 = Math.floor(Math.random() * numCards) + 1;
+
+  let card1 = document.getElementById(random1);
+  let card2 = document.getElementById(random2);
+
+  if (shuffleCount % 4 == 0) {
+    card1.classList.toggle('shuffle-left');
+    card1.style.zIndex = 100;
+  }
+  if (shuffleCount % 10 == 0) {
+    card2.classList.toggle('shuffle-right');
+    card2.style.zIndex = 200;
+  }
+}
+
 function shuffleCards() {
   const id = setInterval(shuffle, 12);
   let shuffleCount = 0;
   function shuffle() {
     randomizeCardPositions();
+    animateShuffle(shuffleCount);
     if (shuffleCount === 500) {
       clearInterval(id);
       shufflingInProgress = false;
+      removeShuffleClasses();
       dealCards();
       updateStatusElem(currentGameStatusElem, 'block', primaryColor, 'Please click the card that you think is the Ace of Spades...');
     } else {
@@ -247,6 +292,8 @@ function returnGridAreasMappedToCardPos() {
     }
   });
 
+  console.log(`"${firstPart}" "${secondPart}"`);
+
   return `"${firstPart}" "${secondPart}"`;
 }
 
@@ -264,7 +311,7 @@ function createCards() {
 
 function createCard(cardItem) {
   const cardElem = document.createElement('div');
-  cardElem.classList.add('card', `card-${cardItem.id}`);
+  cardElem.classList.add('card', `card-${cardItem.id}`, 'fly-in');
   cardElem.id = cardItem.id;
   cardElem.innerHTML = `
   <div class="card__inner">
